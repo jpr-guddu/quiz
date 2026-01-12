@@ -1,1 +1,115 @@
 
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dynamic Content Load</title>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+        <!-- FIREBASE -->
+        <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-firestore-compat.js"></script>
+        <link rel="stylesheet" href="style.css">
+  
+    </head>
+    <body>
+        <div class="header">
+            <input type="text" id="input" placeholder="Search">
+            <button>Get Pass</button>
+        </div>
+
+        <div class="mainAndFooter" id="masti">
+            <h3 id="test&quiz">Practice Tests & Quizzes</h3>
+             <div class="allElement" id="app"></div>
+            <!-- Add more content to here-->
+        </div>
+
+        
+        <div class="info" id="info1">
+            <div class="partOfFooter">
+                <h3>About Us</h3>
+                <p>
+                    We provide high-quality tutorials, quizzes, and study materials
+                    for students of all classes.
+                </p>
+            </div>
+
+                <div class="partOfFooter">
+                    <h3>Important Links</h3>
+                    <a href="#">Home</a>
+                    <a href="#">Tutorials</a>
+                    <a href="#">Quiz</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                    <a href="#">Refund Policy</a>
+                </div>
+
+                <div class="partOfFooter">
+                    <h3>Courses</h3>
+                    <a href="#">Class 9</a>
+                    <a href="#">Class 10</a>
+                    <a href="#">Class 11</a>
+                    <a href="#">Class 12</a>
+                    <a href="#">Competitive Exams</a>
+                </div>
+
+                <div class="partOfFooter">
+                    <h3>Connect With Us</h3>
+                    <a href="#">Instagram</a>
+                    <a href="#">WhatsApp</a>
+                    <a href="#">Telegram</a>
+                    <a href="#">YouTube</a>
+                </div>
+
+                <div class="partOfFooter">
+                    <h3>Contact</h3>
+                    <p>Email: guddukumarbihar2003@gmail.com</p>
+                    <p>WhatsApp: +91 7763015380</p>
+                    <p>Bihar, India</p>
+                </div>
+
+                <div class="footer-bottom">
+                    © 2025 YourSiteName. All Rights Reserved.
+                </div>
+        </div>
+
+        <div class="footer">
+            <button data-link="home.html"><i class="fas fa-home"></i> Home</button>
+            <button data-link="https://jpr-guddu.github.io/live/"><i class="fas fa-broadcast-tower"></i> Live</button>
+            <button data-link="prolive.html"><i class="fas fa-play-circle"></i> Pro Live</button>
+            <button data-link="elitelive.html"><i class="fas fa-star"></i> Elite Live</button>
+            <button data-link="https://jpr-guddu.github.io/live-quiz/"><i class="fas fa-graduation-cap"></i> Free Quiz</button>
+        </div>
+
+        <script>
+            const buttons = document.querySelectorAll('.footer button');
+            const mainContent = document.querySelector('.mainContent');
+
+            buttons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const link = btn.getAttribute('data-link');
+
+                    if(link.startsWith('http')) {
+                        // External URL → full page reload
+                        window.location.href = link;
+                    } else {
+                        // Internal page → load via fetch in mainContent
+                        fetch(link).then(res => {
+                            if (!res.ok) throw new Error('Page not found');
+                            return res.text();
+                        })
+                        .then(html => mainContent.innerHTML = html)
+                        .catch(err => mainContent.innerHTML = `<p style="color:red; padding:20px;">${err.message}</p>`);
+                    }
+                });
+            });
+
+        </script>
+
+        <script src="script.js">
+        </script>
+    </body>
+</html>
